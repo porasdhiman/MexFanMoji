@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Openbusiness</string>
+
+    //drawer string--------
+    <string name="action_settings">Settings</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="film_genres">Film genres</string>
+    <string name="website">https://en.wikipedia.org/wiki/Film</string>
+    <string name="date">22 Oct 2015</string>
+    <string name="selected_item">Selected item</string>
+
+    <string-array name="type">
+        <item>Selling</item>
+        <item>Relationship Management</item>
+        <item>Settings</item>
+        <item>Report</item>
+        <item>Help</item>
+        <item>Legal</item>
+    </string-array>
+
+    <string-array name="actionSelling">
+        <item>Shop</item>
+        <item>Cashiers</item>
+    </string-array>
+
+    <string-array name="relationship">
+        <item>Shop</item>
+        <item>Cashiers</item>
+        <item>Products</item>
+        <item>Inventory</item>
+        <item>Sales</item>
+        <item>Expenses</item>
+        <item>Online Shop</item>
+
+    </string-array>
+
+    <string-array name="settings">
+        <item>Home of the Brave (1949)</item>
+        <item>The Accused (1949)</item>
+        <item>12 Angry Men (1957)</item>
+        <item>Compulsion (1959)</item>
+        <item>Inherit the Wind (1960)</item>
+        <item>To Kill a Mockingbird (1962)</item>
+        <item>Mrs. Miniver (1942)</item>
+        <item>Since You Went Away (1944)</item>
+        <item>The Champ (1931)</item>
+        <item>Nashville (1975)</item>
+    </string-array>
+
+    <string-array name="report">
+        <item>Alien (1979)</item>
+        <item>The French Connection (1971)</item>
+        <item>High Noon (1952)</item>
+        <item>Double Indemnity (1944)</item>
+        <item>Safety Last (1923)</item>
+        <item>The Lady From Shanghai (1948)</item>
+        <item>The Third Man (1949)</item>
+        <item>Rear Window (1954)</item>
+        <item>The 39 Steps (1935)</item>
+        <item>Shadow of a Doubt (1943)</item>
+    </string-array>
+
+    <string-array name="help">
+        <item>Shop</item>
+        <item>Cashiers</item>
+    </string-array>
+
+    <string-array name="legal">
+        <item>Safety Last (1923)</item>
+        <item>Duck Soup (1933)</item>
+        <item>Cat Ballou (1965)</item>
+        <item>What\'s Up, Tiger Lily? (1966)</item>
+        <item>Blazing Saddles (1974)</item>
+        <item>Play It Again, Sam (1972)</item>
+        <item>The Cheap Detective (1978)</item>
+        <item>The Naked Gun (1988)</item>
+        <item>The Freshman (1990)</item>
+        <item>Waiting for Guffman (1996) </item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_title">movie title</string>
+    <string name="action_movies">Action</string>
+    <string name="musical_movies">Musical</string>
+    <string name="drama_movies">Drama</string>
+    <string name="comedy_movies">Comedy</string>
+    <string name="thriller_movies">Thriller</string>
+    <string name="movie_genre">genre</string>
+    <string name="title_activity_main2">blank_layout</string>
+
+    <string-array name="auto_text">
+        <item>Digital Ocean</item>
+        <item>Nairobi Seashop</item>
+
+
+    </string-array>
+</resources>

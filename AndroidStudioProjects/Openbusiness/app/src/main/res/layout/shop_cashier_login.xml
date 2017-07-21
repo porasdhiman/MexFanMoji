@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_color">
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/left_space"
+            android:src="@drawable/left_arrow"/>
+        <ImageView
+            android:id="@+id/app_icon_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/back_img"
+            android:layout_marginLeft="@dimen/left_space"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/app_icon_img"
+            android:layout_marginLeft="@dimen/left_space"
+            android:layout_marginRight="@dimen/right_space"
+            android:text="Business Owner Login"
+            android:textColor="#fff"
+            android:textSize="@dimen/fab_margin"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:layout_above="@+id/linearLayout"
+        android:orientation="vertical"
+    >
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+
+            android:src="@mipmap/ic_launcher"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shop Cashier"
+            android:textSize="@dimen/fab_margin"
+            android:textColor="#000"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/circle_background"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/circle_background"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+
+                android:background="@drawable/circle_background"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+
+                android:background="@drawable/circle_background"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

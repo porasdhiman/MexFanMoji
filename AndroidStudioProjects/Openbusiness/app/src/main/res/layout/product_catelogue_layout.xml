@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_color">
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/left_space"
+            android:src="@drawable/left_arrow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/back_img"
+            android:layout_marginLeft="@dimen/left_space"
+            android:layout_marginRight="@dimen/right_space"
+            android:text="Clone Catelogue"
+            android:textColor="#fff"
+            android:textSize="@dimen/fab_margin"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/header">
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:hint="Digital Ocean"
+            android:entries="@array/auto_text"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="#000"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:hint="Nairobi Seashop"
+            android:entries="@array/auto_text"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="#000"/>
+
+        <RelativeLayout
+            android:id="@+id/success_message_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:id="@+id/tick_img"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:src="@drawable/tick"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tick_img"
+                android:layout_marginLeft="@dimen/left_space"
+                android:textColor="@color/app_color"
+                android:textSize="@dimen/fab_margin"
+                android:textStyle="bold"
+                android:text="Product Cloned Successfully to \nNairobi Seashop"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/clone_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/app_color"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clone"
+            android:textColor="#fff"
+            android:textSize="@dimen/fab_margin"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_color">
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/left_space"
+            android:src="@drawable/left_arrow"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/back_img"
+            android:layout_marginLeft="@dimen/left_space"
+            android:layout_marginRight="@dimen/right_space"
+            android:text="Bulk Upload"
+            android:textColor="#fff"
+            android:textSize="@dimen/fab_margin"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/loader_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+
+
+        />
+</RelativeLayout>
