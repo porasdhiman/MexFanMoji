@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_board"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#f5f5f5"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        >
+
+
+    </FrameLayout>
+
+    <android.inputmethodservice.KeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        android:background="#f5f5f5"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/previewbackground"
+        android:keyPreviewLayout="@layout/preview"
+        android:keyTextColor="#000"
+
+        android:shadowColor="@android:color/transparent" />
+    <!--top bar-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gif_view"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:orientation="horizontal"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    <!--   <ScrollView
+           android:id="@+id/gif_view"
+           android:layout_width="match_parent"
+           android:layout_height="180dp" />-->
+
+    <LinearLayout
+        android:id="@+id/frame_contain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:weightSum="5">
+        <ImageView
+            android:id="@+id/global"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/packNameLabel"
+            android:layout_weight="1"
+            android:src="@drawable/g" />
+
+        <ImageView
+            android:id="@+id/packNameLabel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/keyboard_button" />
+
+
+
+        <ImageView
+            android:id="@+id/first_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+
+            android:layout_toRightOf="@+id/global"
+            android:layout_weight="1"
+            android:src="@drawable/a_1" />
+
+        <ImageView
+            android:id="@+id/second_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+
+            android:layout_toRightOf="@+id/first_image"
+            android:layout_weight="1"
+            android:src="@drawable/a_40" />
+
+        <ImageView
+            android:id="@+id/cancel"
+
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:src="@drawable/delete1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#efeded"
+        android:gravity="left|center"
+        android:orientation="horizontal"
+        android:padding="6dp"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pack_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+
+</LinearLayout>
