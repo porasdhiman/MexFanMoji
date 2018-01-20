@@ -1,6 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/denim_back">
+
+    <TextView
+        android:layout_width="220dp"
+        android:layout_height="60dp"
+        android:background="@drawable/denim_txt_image"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+
+        android:layout_marginTop="30dp"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+
+            android:layout_gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/feel_layout"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/first_cat"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Feel the real"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/comon_layout"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/comon"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Common"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#000"
+                        android:gravity="center"
+                        android:textAllCaps="true"/>
+</LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal">
+            <LinearLayout
+                android:id="@+id/saying_layout"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/saying_img"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sayings"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/inside_layout"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/pay_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:src="@drawable/pay_attention"/>
+                <ImageView
+android:id="@+id/lock_denim"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:padding="10dp"
+                    android:src="@drawable/lock_denim"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pay_image"
+                    android:text="Inside jokes"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

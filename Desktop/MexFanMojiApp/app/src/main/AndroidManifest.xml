@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mexfanemoji">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.mexfanemoji.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="mystickers"/>
+                <data android:host="sticker"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.mexfanemoji.MainViewActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.mexfanemoji.SettingActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.mexfanemoji.ShareActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <provider
+            android:authorities="com.mexfanemoji"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <service
+            android:name=".AppIndexingUpdateService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name="com.mexfanemoji.KeyboardService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@layout/method" />
+
+            <intent-filter>
+
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="554ef2077694defe3f304217687a150a944de5f2" />
+    </application>
+
+</manifest>

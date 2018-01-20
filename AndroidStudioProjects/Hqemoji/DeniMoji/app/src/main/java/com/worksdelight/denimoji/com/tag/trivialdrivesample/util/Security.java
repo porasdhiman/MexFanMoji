@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.tag.trivialdrivesample.util;
+package com.worksdelight.denimoji.com.tag.trivialdrivesample.util;
 
 import android.text.TextUtils;
 import android.util.Log;

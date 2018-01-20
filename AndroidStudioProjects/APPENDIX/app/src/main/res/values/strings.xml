@@ -1,3 +1,503 @@
 <resources>
-    <string name="app_name">APPENDIX</string>
+    <string name="app_name">APPENDIX C</string>
+    <string-array name="acronyms_value">
+       <item >AAFES</item>
+        <item >ACAP</item>
+        <item >ACES</item>
+        <item >ACS/FPC</item>
+        <item >AD</item>
+        <item >ADJ</item>
+        <item >ADSW</item>
+        <item >AER</item>
+        <item >AFAP</item>
+        <item >AFN</item>
+        <item >AFRTS</item>
+        <item >AFTB</item>
+        <item >AG</item>
+        <item >AGR</item>
+        <item >AIT</item>
+        <item >AMC</item>
+        <item >AMMO</item>
+        <item >ANCOC</item>
+        <item >ANG</item>
+        <item >AO</item>
+        <item >APC</item>
+        <item >APF</item>
+        <item >APFT</item>
+        <item >APO</item>
+        <item >AR</item>
+        <item >ARCOM</item>
+        <item >ARNG</item>
+        <item >ARPERCEN</item>
+        <item >ASAP</item>
+        <item >AT</item>
+        <item >AUSA</item>
+        <item >AWOL</item>
+        <item >BAQ</item>
+        <item >BAS</item>
+        <item >BC</item>
+        <item >BCT</item>
+        <item >BDE</item>
+        <item >BDU</item>
+        <item >BN</item>
+        <item >BNCOC</item>
+        <item >CAR</item>
+        <item >CASCOM</item>
+        <item >CDR</item>
+        <item >CDS</item>
+        <item >CG</item>
+        <item >CGSC</item>
+        <item >CHAMPUS</item>
+        <item >CID</item>
+        <item >CINC</item>
+        <item >CNGB</item>
+        <item >CO/Co</item>
+        <item >COB</item>
+        <item >COLA</item>
+        <item >CONUS</item>
+        <item >CP</item>
+        <item >CPO</item>
+        <item >CPX</item>
+        <item >CQ</item>
+        <item >CS/C of S</item>
+        <item >CSA</item>
+        <item >CY</item>
+        <item >DA</item>
+        <item >DDP</item>
+        <item >DDRP</item>
+        <item >DECA</item>
+        <item >DEERS</item>
+        <item >DEW</item>
+        <item >DPW</item>
+        <item >DENTAC</item>
+        <item >DEROS</item>
+        <item >DFAS</item>
+        <item >DI</item>
+        <item >DO</item>
+        <item >DOB</item>
+        <item >DOD</item>
+        <item >DOR</item>
+        <item >DPCA/</item>
+        <item >DCA</item>
+        <item >DPP</item>
+        <item >DSN</item>
+        <item >EANGUS</item>
+        <item >EDRE</item>
+        <item >EE</item>
+        <item >EER/OER</item>
+        <item >EFMP</item>
+        <item >EM</item>
+        <item >EN</item>
+        <item >ESGR</item>
+        <item >ETS</item>
+        <item >EWC</item>
+        <item >FAC</item>
+        <item >FCP</item>
+        <item >FDU</item>
+        <item >FLO</item>
+        <item >FM</item>
+        <item >FMEAP</item>
+        <item >FORSCOM</item>
+        <item >FOUO</item>
+        <item >FPC</item>
+        <item >FRO</item>
+        <item >FSA</item>
+        <item >FSG</item>
+        <item >FTX</item>
+        <item >FY</item>
+        <item >FYI</item>
+        <item >GED</item>
+        <item >GO</item>
+        <item >GS</item>
+        <item >HHC</item>
+        <item >HOR</item>
+        <item >HQ</item>
+        <item >HQDA</item>
+        <item >HS</item>
+        <item >IADT</item>
+        <item >IDT</item>
+        <item >IE</item>
+        <item >IET</item>
+        <item >IG</item>
+        <item >IMA</item>
+        <item >INFO</item>
+        <item >ING</item>
+        <item >IO</item>
+        <item >IRF</item>
+        <item >IRR</item>
+        <item >ITO</item>
+        <item >ITT</item>
+        <item >IVC</item>
+        <item >JAG</item>
+        <item >JR EN</item>
+        <item >JR NCO</item>
+        <item >JUMPS</item>
+        <item >KIA</item>
+        <item >KISS</item>
+        <item >KP</item>
+        <item >LES</item>
+        <item >LN</item>
+        <item >LOD</item>
+        <item >LZ</item>
+        <item >MACOM</item>
+        <item >MEDDAC</item>
+        <item >METL</item>
+        <item >MFO</item>
+        <item >MI</item>
+        <item >MIA</item>
+        <item >MOS</item>
+        <item >MP</item>
+        <item >MRE</item>
+        <item >MSO</item>
+        <item >MUSARC</item>
+        <item >MUTA</item>
+        <item >MWR</item>
+        <item >NA</item>
+        <item >NAF</item>
+        <item >NATO</item>
+        <item >NCO</item>
+        <item >NCOA</item>
+        <item >NCOER</item>
+        <item >NCOIC</item>
+        <item >NCOWC</item>
+        <item >NEO</item>
+        <item >NG</item>
+        <item >NGAUS</item>
+        <item >NGB</item>
+        <item >NLT</item>
+        <item >O CLUB</item>
+        <item >OBC/OAC</item>
+        <item >OCAR</item>
+        <item >OCONUS</item>
+        <item >OCS</item>
+        <item >OD</item>
+        <item >OIC</item>
+        <item >OWC</item>
+        <item >OJT</item>
+        <item >ORE</item>
+        <item >PAC</item>
+        <item >PAM</item>
+        <item >PAO</item>
+        <item >PCS</item>
+        <item >PDQ</item>
+        <item >PERSCOM</item>
+        <item >PLT</item>
+        <item >PM</item>
+        <item >PMOS</item>
+        <item >POA</item>
+        <item >POC</item>
+        <item >POE</item>
+        <item >POI</item>
+        <item >POV</item>
+        <item >PT</item>
+        <item >PX</item>
+        <item >PZ</item>
+        <item >QM</item>
+        <item >QTRS</item>
+        <item >RA</item>
+        <item >RC</item>
+        <item >RD</item>
+        <item >RDC</item>
+        <item >RDF</item>
+        <item >R&amp;D</item>
+        <item >REG</item>
+        <item >REGT</item>
+        <item >R&amp;R</item>
+        <item >RFO</item>
+        <item >RIF</item>
+        <item >RO</item>
+        <item >ROTC</item>
+        <item >RSVP</item>
+        <item >SBP</item>
+        <item >SD</item>
+        <item >SDNCO</item>
+        <item >SDO</item>
+        <item >SES</item>
+        <item >SGLI</item>
+        <item >SIDPERS</item>
+        <item >SJA</item>
+        <item >SMI</item>
+        <item >SOCOM</item>
+        <item >SOP</item>
+        <item >SQD</item>
+        <item >SQT</item>
+        <item >SRB</item>
+        <item >SSN</item>
+        <item >STARC</item>
+        <item >SZ</item>
+        <item >TAG</item>
+        <item >TASC</item>
+        <item >TDY</item>
+        <item >TIG</item>
+        <item >TLA</item>
+        <item >TMP</item>
+        <item >TPU</item>
+        <item >TRADOC</item>
+        <item >TTAD</item>
+        <item >USAR</item>
+        <item >USARC</item>
+        <item >USARF</item>
+        <item >USO</item>
+        <item >UTA</item>
+        <item >VA</item>
+        <item >VHA</item>
+        <item >VOLAR</item>
+        <item >WG</item>
+        <item >WO</item>
+        <item >WOAC</item>
+        <item >WOC</item>
+        <item >WOSC</item>
+        <item >XO</item>
+
+    </string-array>
+
+    <string-array name="abbreviations_value">
+        <item>Army and Air Force Exchange Service</item>
+        <item>Army Career and Alumni Program</item>
+        <item>Army Continuing Education System</item>
+        <item>Army Community Service/Family Program Coordinator</item>
+        <item>Active duty</item>
+        <item>Adjutant</item>
+        <item >Active duty for special work</item>
+        <item >Army Emergency Relief</item>
+        <item >Army Family Action Plan</item>
+        <item >Armed Forces Network</item>
+        <item >Armed Forces Radio and Television Network</item>
+        <item >Army Family Team Building</item>
+        <item >Adjutant General</item>
+        <item >Active Guard Reserve</item>
+        <item >Advanced Individual Training</item>
+        <item >Army Materiel Command</item>
+        <item >Ammunition</item>
+        <item >Advanced Noncommissioned Officer Course</item>
+        <item >Air National Guard</item>
+        <item >Area of operations/administrative officer</item>
+        <item >Armored personnel carrier</item>
+        <item >Appropriated funds</item>
+        <item >Army Physical Fitness Test</item>
+        <item >Army post office</item>
+        <item >Army Reserve/Army regulation/armor</item>
+        <item >Army Reserve Command</item>
+        <item >Army National Guard</item>
+        <item >Army Reserve Personnel Center</item>
+        <item >As soon as possible</item>
+        <item >Annual training</item>
+        <item >Association of the United States Army</item>
+        <item >Absent without leave</item>
+        <item >Basic allowance for quarters</item>
+        <item >Basic allowance for subsistence</item>
+        <item >Battery commander</item>
+        <item >Basic combat training</item>
+        <item >Brigade</item>
+        <item >Battle dress uniform (jungle, desert, cold weather)</item>
+        <item >Battalion</item>
+        <item >Basic Noncommissioned Officer Course</item>
+        <item >Chief of Army Reserve</item>
+        <item >Combined Arms Support Command</item>
+        <item >Commander</item>
+        <item >Child Development Services</item>
+        <item >Commanding General</item>
+        <item >Command and General Staff College</item>
+        <item >Civilian Health and Medical Program for the Uniformed Services</item>
+        <item >Criminal Investigation Division</item>
+        <item >Commander in Chief</item>
+        <item >Chief, National Guard Bureau</item>
+        <item >Commanding officer/company</item>
+        <item >Close of business</item>
+        <item >Cost of living allowance</item>
+        <item >Continental United States</item>
+        <item >Command post</item>
+        <item >Civilian Personnel Office</item>
+        <item >Command Post Exercise</item>
+        <item >Charge of quarters (duty required after duty hours)</item>
+        <item >Chief of Staff</item>
+        <item >Chief of Staff, Army</item>
+        <item >Calendar year</item>
+        <item >Department of Army</item>
+        <item >Delta Dental Plan</item>
+        <item >Drug Demand Reduction Program</item>
+        <item >Defense Commissary Agency</item>
+        <item >Defense Enrollment Eligibility Reporting System</item>
+        <item >Director of Engineering and Housing/</item>
+        <item >Director of Public Works</item>
+        <item >United States Army Dental Activity</item>
+        <item >Date of estimated return from overseas</item>
+        <item >Defense Finance and Accounting System</item>
+        <item >Drill instructor</item>
+        <item >Duty officer</item>
+        <item >Date of birth</item>
+        <item >Department of Defense</item>
+        <item >Date of rank</item>
+        <item >Director of Personnel and Community Activities/</item>
+        <item >Director of Community Affairs</item>
+        <item >Deferred payment plan</item>
+        <item >Defense Switched Network (current term for Autovon)</item>
+        <item >Enlisted Association of the National Guard of the United States</item>
+        <item >Emergency Deployment Reaction Exercise</item>
+        <item >Emergency essential</item>
+        <item >Enlisted/officer evaluation report</item>
+        <item >Exceptional Family Member Program</item>
+        <item >Enlisted member</item>
+        <item >Enlisted</item>
+        <item >Employer support of the Guard and Reserve</item>
+        <item >Estimated time of separation</item>
+        <item >Enlisted wives club</item>
+        <item >Family assistance center</item>
+        <item >Family care plan</item>
+        <item >Full dress uniform</item>
+        <item >Family Liaison Office</item>
+        <item >Family member/field manual</item>
+        <item >Family Member Employment Assistance Program</item>
+        <item >Forces Command</item>
+        <item >For official use only</item>
+        <item >Family Program Coordinator (for Guard and Reserve)</item>
+        <item >Family readiness officer</item>
+        <item >Family separation allowance</item>
+        <item >Family support group</item>
+        <item >Field training exercise</item>
+        <item >Fiscal year</item>
+        <item >For your information</item>
+        <item >General Education Diploma</item>
+        <item >General Officer</item>
+        <item >General schedule (Government civilian employee pay grades)</item>
+        <item >Headquarters and Headquarters Company</item>
+        <item >Home of record</item>
+        <item >Headquarters</item>
+        <item >Headquarters, Department of the Army</item>
+        <item >Home station</item>
+        <item >Initial active duty training</item>
+        <item >Inactive duty training</item>
+        <item >Initial entry</item>
+        <item >Initial entry training</item>
+        <item >Inspector General</item>
+        <item >Individual Mobilization Augmentee</item>
+        <item >For the information of</item>
+        <item >Inactive National Guard</item>
+        <item >Information officer</item>
+        <item >Immediate reaction force</item>
+        <item >Individual Ready Reserve</item>
+        <item >Information travel office/invitational travel order</item>
+        <item >Information, tours, and travel</item>
+        <item >Installation volunteer coordinator</item>
+        <item >Judge Advocate General</item>
+        <item >Junior grade enlisted personnel</item>
+        <item >Junior grade noncommissioned officer</item>
+        <item >Joint Uniform Military Pay System</item>
+        <item >Killed in action</item>
+        <item >Keep it simple stupid/sweetie</item>
+        <item >Kitchen patrol</item>
+        <item >Leave and earnings statement</item>
+        <item >Local National</item>
+        <item >Line of duty</item>
+        <item >Landing zone</item>
+        <item >Major Army command</item>
+        <item >Medical department activity</item>
+        <item >Mission essential task list</item>
+        <item >Multinational forces and observer</item>
+        <item >Military intelligence</item>
+        <item >Missing in action</item>
+        <item >Military occupational specialty</item>
+        <item >Military police</item>
+        <item >Meals ready to eat</item>
+        <item >Morale support officer</item>
+        <item >Major U.S. Army Reserve Command</item>
+        <item >Multi-unit training assembly</item>
+        <item >Morale, Welfare, and Recreation</item>
+        <item >Not applicable</item>
+        <item >Nonappropriated funds (generated locally)</item>
+        <item >North Atlantic Treaty Organization</item>
+        <item >Noncommissioned officer</item>
+        <item >Noncommissioned Officers Association</item>
+        <item >Noncommissioned officer evaluation report</item>
+        <item >Noncommissioned officer in charge</item>
+        <item >Noncommissioned officers\' wives club</item>
+        <item >Noncombatant evacuation operation</item>
+        <item >National Guard</item>
+        <item >National Guard Association of the United States</item>
+        <item >National Guard Bureau</item>
+        <item >Not later than</item>
+        <item >Officers\' club</item>
+        <item >Officer Basic/Advanced Course</item>
+        <item >Office of the Chief, Army Reserve</item>
+        <item >Outside Continental United States</item>
+        <item >Officer Candidate School</item>
+        <item >Officer of the day</item>
+        <item >Officer-in-charge</item>
+        <item >On the job training</item>
+        <item >Operational readiness exercise</item>
+        <item >Officers\' wives club</item>
+        <item >Personnel Administration Center</item>
+        <item >Pamphlet</item>
+        <item >Public affairs officer</item>
+        <item >Permanent change of station</item>
+        <item >Pretty &quot;quotedarn&quot; quick</item>
+        <item >Total Army Personnel Command</item>
+        <item >Platoon primary level training</item>
+        <item >Provost marshal (police chief)</item>
+        <item >Primary military occupational specialty</item>
+        <item >Power of attorney</item>
+        <item >Point of contact</item>
+        <item >Point of embarkation</item>
+        <item >Program of instruction</item>
+        <item >Privately, owned vehicle</item>
+        <item >Physical training</item>
+        <item >Post exchange</item>
+        <item >Primary zone</item>
+        <item >Quartermaster</item>
+        <item >Quarters (living area)</item>
+        <item >Regular Army</item>
+        <item >Reserve Component</item>
+        <item >Rear detachment</item>
+        <item >Rear detachment commander</item>
+        <item >Rapid deployment force</item>
+        <item >Research and development</item>
+        <item >Regulation</item>
+        <item >Regiment</item>
+        <item >Rest and recreation</item>
+        <item >Request for orders</item>
+        <item >Reduction in force</item>
+        <item >Roundout</item>
+        <item >Reserve Officer Training Corps</item>
+        <item >Reply whether or not you can attend</item>
+        <item >Survivor Benefit Plan</item>
+        <item >Staff duty</item>
+        <item >Staff duty noncommissioned officer</item>
+        <item >Staff duty officer</item>
+        <item >Senior Executive Service (senior civilian employee grades)</item>
+        <item >Servicemen\'s Group Life Insurance</item>
+        <item >Standard Installation/Division Personnel Reporting System</item>
+        <item >Staff Judge Advocate</item>
+        <item >Supplemental Medical Insurance</item>
+        <item >Special Operations Command</item>
+        <item >Standard operating procedure</item>
+        <item >Squad, a unit within a platoon</item>
+        <item >Skills qualification test</item>
+        <item >Selective reenlistment bonus</item>
+        <item >Social security number</item>
+        <item >State Area Command</item>
+        <item >Secondary zone</item>
+        <item >The Adjutant General</item>
+        <item >Training and support center</item>
+        <item >Temporary duty</item>
+        <item >Time in grade</item>
+        <item >Temporary living allowance</item>
+        <item >Transportation motor pool</item>
+        <item >Troop program unit</item>
+        <item >Training and Doctrine Command</item>
+        <item >Temporary tour active duty</item>
+        <item >United States Army Reserve</item>
+        <item >United States Army Reserve Command</item>
+        <item >United States Army Reserve Forces (Schools)</item>
+        <item >United Service Organization</item>
+        <item >Unit training assembly</item>
+        <item >Department of Veterans Affairs (formerly Veterans Administration)</item>
+        <item >Variable housing allowance</item>
+        <item >Volunteer Army</item>
+        <item >Wage grade</item>
+        <item >Warrant officer</item>
+        <item >Warrant Officer Advanced Course</item>
+        <item >Warrant Officer Candidate Course</item>
+        <item >Warrant Officer Senior Course</item>
+        <item >Executive officer</item>
+        </string-array>
 </resources>

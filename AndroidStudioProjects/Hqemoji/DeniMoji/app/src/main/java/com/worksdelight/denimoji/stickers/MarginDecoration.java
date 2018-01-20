@@ -1,8 +1,6 @@
-package com.rokolabs.rokomoji.stickers;
+package com.worksdelight.denimoji.stickers;
 
-/**
- * Created by mist on 12.12.16.
- */
+
 
 import android.content.Context;
 import android.graphics.Rect;

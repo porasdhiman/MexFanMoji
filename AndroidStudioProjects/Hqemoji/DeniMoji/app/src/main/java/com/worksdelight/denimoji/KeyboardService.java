@@ -1,9 +1,6 @@
-package com.rokolabs.rokomoji;
+package com.worksdelight.denimoji;
 
 import android.app.Activity;
-import android.app.AppOpsManager;
-import android.content.ClipDescription;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,23 +17,15 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v13.view.inputmethod.EditorInfoCompat;
-import android.support.v13.view.inputmethod.InputConnectionCompat;
-import android.support.v13.view.inputmethod.InputContentInfoCompat;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputBinding;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -47,26 +36,21 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.worksdelight.denimoji.stickers.MarginDecoration;
+import com.worksdelight.denimoji.stickers.StickerAdapter;
 
-import com.rokolabs.rokomoji.stickers.MarginDecoration;
-import com.rokolabs.rokomoji.stickers.StickerAdapter;
-
-import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 
-/**
- * Created by mist on 02.12.16.
- */
 
 public class KeyboardService extends InputMethodService {
     private static final String TAG = "KeyboardService";
-    private final static String SERVICE_NAME = "com.rokolabs.rokomoji.KeyboardService";
+    private final static String SERVICE_NAME = "com.worksdelight.denimoji.KeyboardService";
     LinearLayout mainBoard;
 
     private StickerAdapter stickerAdapter;
 
-    private ImageView packNameLabel, cancel, global, first_image, second_image, third_image;
+    private ImageView packNameLabel, cancel, global, first_image, second_image, third_image,fourth_image;
 
     private RecyclerView packView, stickerView;
 
@@ -118,6 +102,9 @@ ImageView cancel_img;
         } else if (k == 2) {
             stickerAdapter = new StickerAdapter(this, GlobalConstants.small_img3, k);
 
+        }else if (k == 3) {
+            stickerAdapter = new StickerAdapter(this, GlobalConstants.small_img4, k);
+
         }
 
 
@@ -129,7 +116,7 @@ ImageView cancel_img;
     @Override
     public View onCreateInputView() {
         mainBoard = (LinearLayout) getLayoutInflater().inflate(R.layout.main_board_layout, null);
-        sp = getSharedPreferences("Denimoji", Context.MODE_PRIVATE);
+        sp = getSharedPreferences("denimoji", Context.MODE_PRIVATE);
         ed = sp.edit();
         share_view = (LinearLayout) mainBoard.findViewById(R.id.share_view);
         cancel_img = (ImageView) mainBoard.findViewById(R.id.cancel_img);
@@ -146,6 +133,7 @@ ImageView cancel_img;
         first_image = (ImageView) mainBoard.findViewById(R.id.first_image);
         second_image = (ImageView) mainBoard.findViewById(R.id.second_image);
         third_image = (ImageView) mainBoard.findViewById(R.id.third_image);
+        fourth_image=(ImageView)mainBoard.findViewById(R.id.fourth_image);
         // scrollView = (ScrollView) mainBoard.findViewById(R.id.gif_view);
         keyboard_view = (KeyboardView) mainBoard.findViewById(R.id.keyboard_view);
         stickerView = (RecyclerView) mainBoard.findViewById(R.id.gif_view);
@@ -197,6 +185,7 @@ ImageView cancel_img;
                 second_image.setAlpha(0.3f);
                 first_image.setAlpha(0.3f);
                 third_image.setAlpha(1.0f);
+                fourth_image.setAlpha(0.3f);
                 //stickerView.getLayoutManager().scrollToPosition(1);
             }
         });
@@ -208,6 +197,7 @@ ImageView cancel_img;
                 second_image.setAlpha(0.3f);
                 first_image.setAlpha(1.0f);
                 third_image.setAlpha(0.3f);
+                fourth_image.setAlpha(0.3f);
                 //stickerView.getLayoutManager().scrollToPosition(13);
 
             }
@@ -221,6 +211,20 @@ ImageView cancel_img;
                 second_image.setAlpha(1.0f);
                 first_image.setAlpha(0.3f);
                 third_image.setAlpha(0.3f);
+                fourth_image.setAlpha(0.3f);
+                switchBoard();
+                //stickerView.getLayoutManager().scrollToPosition(37);
+
+            }
+        });
+        fourth_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                k = 3;
+                fourth_image.setAlpha(1.0f);
+                first_image.setAlpha(0.3f);
+                third_image.setAlpha(0.3f);
+                second_image.setAlpha(0.3f);
                 switchBoard();
                 //stickerView.getLayoutManager().scrollToPosition(37);
 
@@ -380,7 +384,7 @@ ImageView cancel_img;
 
 
     //-----------------------------------------Seek view Method--------------
-    public void visibilityOfShareView(final int pos, byte[] b, final int value) {
+    public void visibilityOfShareView(byte[] b) {
         share_view.setVisibility(View.VISIBLE);
         packNameLabel.setVisibility(View.GONE);
         view_layout.setVisibility(View.GONE);

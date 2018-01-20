@@ -1,15 +1,22 @@
 package com.rokolabs.rokomoji.stickers;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -18,11 +25,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.rokolabs.rokomoji.GlobalConstants;
 import com.rokolabs.rokomoji.KeyboardService;
 import com.rokolabs.rokomoji.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,31 +48,20 @@ import pl.droidsonroids.gif.GifDrawable;
 
 public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
     private final String TAG = "StickerAdapter";
-    private List<StickerData> stickerDataList = new ArrayList<StickerData>();
+
     private KeyboardService keyboardService;
     private List<String> listImg = new ArrayList<String>();
-
+    String resname;
     int img[];
-    int[] img1 = {R.drawable.b_01, R.drawable.b_02, R.drawable.b_03, R.drawable.b_04, R.drawable.b_08, R.drawable.b_09, R.drawable.b_010, R.drawable.b_011,
-            R.drawable.a_12,R.drawable.a_13, R.drawable.b_012};
-    int[] img2={R.drawable.b_0001,R.drawable.b_0002,R.drawable.b_0003,R.drawable.b_0004,R.drawable.b_0005,R.drawable.b_0006,R.drawable.b_0007
-            ,R.drawable.b_0008,R.drawable.b_0009,R.drawable.b_00010,R.drawable.b_00011,R.drawable.b_00012,R.drawable.b_00013,R.drawable.b_00014,
-            R.drawable.b_00015,R.drawable.b_00016,R.drawable.b_00017,R.drawable.b_00018,R.drawable.b_00019,R.drawable.b_00020};
-    int[] img3={R.drawable.b_001,R.drawable.b_002,R.drawable.b_003,R.drawable.b_004,R.drawable.b_005,R.drawable.b_006,R.drawable.b_007
-            ,R.drawable.b_008,R.drawable.b_009,R.drawable.a_0010,R.drawable.a_0011};
-    int[] img4={R.drawable.b_00001,R.drawable.b_00002,R.drawable.b_00003,R.drawable.b_00004,R.drawable.b_00005,R.drawable.b_00006,
-            R.drawable.b_00007,R.drawable.b_00008,R.drawable.b_00009,R.drawable.b_000010,R.drawable.b_000011,R.drawable.b_000012,
-            R.drawable.b_000013,R.drawable.b_000014,R.drawable.b_000015,R.drawable.b_000016
-            ,R.drawable.b_000017,R.drawable.b_000018,R.drawable.b_000019,R.drawable.a_00020,R.drawable.b_000020,R.drawable.b_000021,R.drawable.b_000023,R.drawable.b_000024};
-    int[] img5={R.drawable.b_1,R.drawable.b_2,R.drawable.b_3,R.drawable.b_4,R.drawable.b_5,
-            R.drawable.b_6,R.drawable.b_7,R.drawable.b_8,R.drawable.b_9,R.drawable.b_10,
-            R.drawable.b_11,R.drawable.b_12,R.drawable.b_13,R.drawable.b_14};
-            int value;
-    public StickerAdapter(KeyboardService kis, int img[],int value) {
-        this.keyboardService = kis;
-       this.img = img;
-        this.value=value;
 
+    int value;
+    SharedPreferences sp;
+
+    public StickerAdapter(KeyboardService kis, int img[], int value) {
+        this.keyboardService = kis;
+        this.img = img;
+        this.value = value;
+        sp = keyboardService.getSharedPreferences("Denimoji", Context.MODE_PRIVATE);
     }
 
     @Override
@@ -91,26 +91,27 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
 
             TypedValue value = new TypedValue();
             keyboardService.getResources().getValue(img[position], value, true);
-            String resname = value.string.toString();
+            resname = value.string.toString();
 
-            if(resname.contains(".gif")){
+            if (resname.contains(".gif")) {
                 holder.imageView.setVisibility(View.GONE);
                 holder.gif.setVisibility(View.VISIBLE);
                 try {
-                    GifDrawable gifFromResource = new GifDrawable(keyboardService.getResources(), img[position] );
+                    GifDrawable gifFromResource = new GifDrawable(keyboardService.getResources(), img[position]);
                     holder.gif.setImageDrawable(gifFromResource);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 holder.imageView.setVisibility(View.VISIBLE);
                 holder.gif.setVisibility(View.GONE);
+
                 holder.imageView.setImageResource(img[position]);
 
             }
 
-               // holder.gif.setVisibility(View.GONE);
-           // }
+            // holder.gif.setVisibility(View.GONE);
+            // }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,90 +120,133 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*for (int l=0;l<img.length;l++){
-                    TypedValue value = new TypedValue();
-                    keyboardService.getResources().getValue(img[l], value, true);
-                    String resname = value.string.toString();
-                    if(resname==global.getListImages().get(l)){
+                if (sp.getString("type", "0").equalsIgnoreCase("1")) {
+                    Bitmap bitmap = null;
 
+                    if (value == 0) {
+                        bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img1[position]);
+
+                    } else if (value == 1) {
+                        bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img2[position]);
+
+                    } else if (value == 2) {
+                        bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img3[position]);
                     }
-                }*/
-                try {
-                    Uri imageUri = null;
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    byte[] b = baos.toByteArray();
+                    keyboardService.visibilityOfShareView(position, b, value);
+                } else {
                     try {
-                        if(value==0){
-                            imageUri = Uri.parse(MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(),
-                                    BitmapFactory.decodeResource(keyboardService.getResources(), img1[position]), null, null));
-                        }else if(value==1){
-                            imageUri = Uri.parse(MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(),
-                                    BitmapFactory.decodeResource(keyboardService.getResources(), img2[position]), null, null));
+
+
+                        Bitmap resizedbitmap = null, bm = null;
+
+                        if (value == 0) {
+                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img1[position]);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
+
+
+                        } else if (value == 1) {
+                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img2[position]);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
+
+                        } else if (value == 2) {
+                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img3[position]);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                            bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
                         }
-                        else if(value==2){
-                            imageUri = Uri.parse(MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(),
-                                    BitmapFactory.decodeResource(keyboardService.getResources(), img3[position]), null, null));
-                        }
-                        else if(value==3){
-                            imageUri = Uri.parse(MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(),
-                                    BitmapFactory.decodeResource(keyboardService.getResources(), img4[position]), null, null));
-                        }
-                        else if(value==4){
-                            imageUri = Uri.parse(MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(),
-                                    BitmapFactory.decodeResource(keyboardService.getResources(), img5[position]), null, null));
+                        int[] allpixels = new int[bm.getHeight() * bm.getWidth()];
+
+                        bm.getPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
+
+                        for (int i = 0; i < allpixels.length; i++) {
+                            if (allpixels[i] == Color.TRANSPARENT) {
+                                allpixels[i] = Color.WHITE;
+                            }
                         }
 
-                    } catch (NullPointerException e) {
-                    }
-                    ActivityInfo ai = getAppForShare("image/png");
-                    // Launch the Google+ share dialog with attribution to your app.
-                    Intent i = new Intent(Intent.ACTION_SEND);
-                    i.setClassName(ai.applicationInfo.packageName, ai.name);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        bm.setPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
 
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    i.setType("image/png");
-                    //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                    //   "Install this app and used refer code=1234567890");
-                    i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                        String imgBitmapPath = MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(), bm, "title", null);
+                        Uri imageUri = Uri.parse(imgBitmapPath);
+
+                        try {
+                            ActivityInfo ai = getAppForShare("image/jpg");
+                            // Launch the Google+ share dialog with attribution to your app.
+                            Intent i = new Intent(Intent.ACTION_SEND);
+                            i.setClassName(ai.applicationInfo.packageName, ai.name);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            i.setType("image/jpg");
+                            //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                            //   "Install this app and used refer code=1234567890");
+                            i.putExtra(Intent.EXTRA_STREAM, imageUri);
                    /* final Intent chooser = Intent.createChooser(i, "share");
                     chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
-                    keyboardService.startActivity(i);
-                } catch (android.content.ActivityNotFoundException ex) {
+                            keyboardService.startActivity(i);
+                        } catch (Exception c) {
+                            // Toast.makeText(keyboardService, "Application does not support", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(Intent.ACTION_SEND);
+
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            i.setType("image/jpg");
+                            //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                            //   "Install this app and used refer code=1234567890");
+                            i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                            final Intent chooser = Intent.createChooser(i, "share");
+                            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            keyboardService.startActivity(chooser);
+                        }
+
+                    } catch (android.content.ActivityNotFoundException ex) {
+                    }
                 }
             }
         });
-        holder.gif.setOnClickListener(new View.OnClickListener() {
+       /* holder.gif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*for (int l=0;l<img.length;l++){
+                *//*for (int l=0;l<img.length;l++){
                     TypedValue value = new TypedValue();
                     keyboardService.getResources().getValue(img[l], value, true);
                     String resname = value.string.toString();
                     if(resname==global.getListImages().get(l)){
 
                     }
-                }*/
+                }*//*
                 try {
-                    String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-                    File file = new File(extStorageDirectory, "CarpMoji.gif");
-                    InputStream fis=null;
+                    File file1 = new File(Environment.getExternalStorageDirectory() + "/Denimoji/");
+
+                    if (!file1.exists())     //check if file already exists
+                    {
+                        file1.mkdirs();     //if not, create it
+                    }
+                    File file = new File(file1, "denimoji.gif");
+
+                    InputStream fis = null;
                     try {
-                        byte[] readData = new byte[1024*500];
+                        byte[] readData = new byte[1024 * 500];
                         try {
-                            if(value==0){
-                              fis = keyboardService.getResources().openRawResource(img1[position]);
-                            }else if(value==1){
-                                 fis = keyboardService.getResources().openRawResource(img2[position]);
+                            if (value == 0) {
+                                fis = keyboardService.getResources().openRawResource(GlobalConstants.img1[position]);
+                            } else if (value == 1) {
+                                fis = keyboardService.getResources().openRawResource(GlobalConstants.img2[position]);
+                            } else if (value == 2) {
+                                fis = keyboardService.getResources().openRawResource(GlobalConstants.img3[position]);
                             }
-                            else if(value==2){
-                                 fis = keyboardService.getResources().openRawResource(img3[position]);
-                            }
-                            else if(value==3){
-                                 fis = keyboardService.getResources().openRawResource(img4[position]);
-                            }
-                            else if(value==4){
-                                 fis = keyboardService.getResources().openRawResource(img5[position]);
-                            }
+
 
                         } catch (NullPointerException e) {
                         }
@@ -221,26 +265,29 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
                     }
                     Uri imageUri = Uri.fromFile(file);
 
-                    ActivityInfo ai = getAppForShare("image/gif");
+                    try {
+                        ActivityInfo ai = getAppForShare("image/gif");
+                        // Launch the Google+ share dialog with attribution to your app.
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setClassName(ai.applicationInfo.packageName, ai.name);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                    // Launch the Google+ share dialog with attribution to your app.
-                    Intent i = new Intent(Intent.ACTION_SEND);
-                    i.setClassName(ai.applicationInfo.packageName, ai.name);
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    i.setType("image/gif");
-                    //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                    //   "Install this app and used refer code=1234567890");
-                    i.putExtra(Intent.EXTRA_STREAM, imageUri);
-                   /* final Intent chooser = Intent.createChooser(i, "share");
-                    chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
-                    keyboardService.startActivity(i);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        i.setType("image/gif");
+                        //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                        //   "Install this app and used refer code=1234567890");
+                        i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                   *//* final Intent chooser = Intent.createChooser(i, "share");
+                    chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*//*
+                        keyboardService.startActivity(i);
+                    } catch (Exception c) {
+                        Toast.makeText(keyboardService, "Application does not support", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (android.content.ActivityNotFoundException ex) {
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -259,6 +306,7 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
         }
         return null;
     }
+
     private ActivityInfo getAppForShare(String type) {
         final EditorInfo editorInfo = keyboardService.getCurrentInputEditorInfo();
         Intent intent = new Intent();
@@ -275,5 +323,47 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
             }
         }
         return null;
+    }
+
+    public static Drawable setTint(Drawable d, int color) {
+
+        Drawable wrappedDrawable = DrawableCompat.wrap(d);
+        DrawableCompat.setTint(wrappedDrawable, color);
+        return wrappedDrawable;
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable, KeyboardService kis) {
+        Bitmap bitmap = null;
+
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        int[] allpixels = new int[bitmap.getHeight() * bitmap.getWidth()];
+
+        bitmap.getPixels(allpixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        for (int i = 0; i < allpixels.length; i++) {
+            if (allpixels[i] == Color.TRANSPARENT) {
+                allpixels[i] = Color.WHITE;
+            }
+        }
+
+        bitmap.setPixels(allpixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        return bitmap;
     }
 }

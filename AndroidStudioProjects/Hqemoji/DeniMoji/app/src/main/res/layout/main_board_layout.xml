@@ -66,7 +66,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/gif_view"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="210dp"
         android:orientation="horizontal"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
     <!--   <ScrollView
@@ -81,7 +81,7 @@
         android:orientation="horizontal"
         android:padding="5dp"
         android:visibility="gone"
-        android:weightSum="6">
+        android:weightSum="7">
 
         <ImageView
             android:id="@+id/global"
@@ -126,6 +126,17 @@
             android:alpha="0.3"
 
             android:src="@drawable/third_img" />
+        <ImageView
+            android:id="@+id/fourth_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+
+
+            android:layout_weight="1"
+            android:alpha="0.3"
+
+            android:src="@drawable/fourth_tab_image" />
 
         <ImageView
             android:id="@+id/packNameLabel"

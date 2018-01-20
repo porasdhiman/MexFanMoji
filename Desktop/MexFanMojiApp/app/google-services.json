@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1006557385336",
+    "firebase_url": "https://mexfanemoji.firebaseio.com",
+    "project_id": "mexfanemoji",
+    "storage_bucket": "mexfanemoji.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006557385336:android:d3ae7748df83c700",
+        "android_client_info": {
+          "package_name": "com.mexfanemoji"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006557385336-dasu6ornlahr2kstvleaq9el8a98i5i2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUGn8V6-vQofBmXUDmS--Tphsk_mafQPM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

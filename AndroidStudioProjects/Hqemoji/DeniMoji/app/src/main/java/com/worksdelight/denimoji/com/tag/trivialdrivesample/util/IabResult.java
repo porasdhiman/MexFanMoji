@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.tag.trivialdrivesample.util;
+package com.worksdelight.denimoji.com.tag.trivialdrivesample.util;
 
 /**
  * Represents the result of an in-app billing operation.

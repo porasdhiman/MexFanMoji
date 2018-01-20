@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.tag.trivialdrivesample.util;
+package com.worksdelight.denimoji.com.tag.trivialdrivesample.util;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

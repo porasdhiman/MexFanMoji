@@ -1,4 +1,4 @@
-package com.rokolabs.rokomoji.stickers;
+package com.worksdelight.denimoji.stickers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +10,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.DrawableCompat;
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,24 +26,24 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.rokolabs.rokomoji.GlobalConstants;
-import com.rokolabs.rokomoji.KeyboardService;
-import com.rokolabs.rokomoji.R;
+
+import com.worksdelight.denimoji.GlobalConstants;
+import com.worksdelight.denimoji.KeyboardService;
+import com.worksdelight.denimoji.MainViewActivity;
+import com.worksdelight.denimoji.R;
+import com.worksdelight.denimoji.ShareActivity;
+import com.worksdelight.denimoji.com.tag.trivialdrivesample.util.IabHelper;
+import com.worksdelight.denimoji.com.tag.trivialdrivesample.util.IabResult;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifDrawable;
 
-/**
- * Created by mist on 12.12.16.
- */
+import static android.content.ContentValues.TAG;
+
 
 public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
     private final String TAG = "StickerAdapter";
@@ -53,15 +52,16 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
     private List<String> listImg = new ArrayList<String>();
     String resname;
     int img[];
-
+    Bitmap bitmap = null;
     int value;
     SharedPreferences sp;
-
+    Bitmap resizedbitmap = null, bm = null;
     public StickerAdapter(KeyboardService kis, int img[], int value) {
         this.keyboardService = kis;
         this.img = img;
         this.value = value;
-        sp = keyboardService.getSharedPreferences("Denimoji", Context.MODE_PRIVATE);
+        sp = keyboardService.getSharedPreferences("denimoji", Context.MODE_PRIVATE);
+
     }
 
     @Override
@@ -74,220 +74,191 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerHolder> {
     public void onBindViewHolder(final StickerHolder holder, final int position) {
         //final StickerData sticker = stickerDataList.get(position);
 
-        try {
-           /* if(sticker.iconKey.getPath().contains(".gif")){
-               // sticker.iconKey.getPath();
-                Log.e("path",sticker.iconKey.getPath());
-             File f=new File(sticker.iconKey.getPath());
+        holder.imageView.setImageResource(img[position]);
+        if(value==3){
 
-                try {
-                    GifDrawable gifFromResource = new GifDrawable(f);
-                    holder.gif.setImageDrawable(gifFromResource);
-                    holder.imageView.setVisibility(View.GONE);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }else{*/
+            if (sp.getString("purchase_type", "").equalsIgnoreCase("1")) {
+                holder.lock.setVisibility(View.GONE);
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (sp.getString("type", "0").equalsIgnoreCase("1")) {
+                            bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img4[position]);
 
-            TypedValue value = new TypedValue();
-            keyboardService.getResources().getValue(img[position], value, true);
-            resname = value.string.toString();
-
-            if (resname.contains(".gif")) {
-                holder.imageView.setVisibility(View.GONE);
-                holder.gif.setVisibility(View.VISIBLE);
-                try {
-                    GifDrawable gifFromResource = new GifDrawable(keyboardService.getResources(), img[position]);
-                    holder.gif.setImageDrawable(gifFromResource);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                holder.imageView.setVisibility(View.VISIBLE);
-                holder.gif.setVisibility(View.GONE);
-
-                holder.imageView.setImageResource(img[position]);
-
-            }
-
-            // holder.gif.setVisibility(View.GONE);
-            // }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (sp.getString("type", "0").equalsIgnoreCase("1")) {
-                    Bitmap bitmap = null;
-
-                    if (value == 0) {
-                        bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img1[position]);
-
-                    } else if (value == 1) {
-                        bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img2[position]);
-
-                    } else if (value == 2) {
-                        bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img3[position]);
-                    }
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-                    byte[] b = baos.toByteArray();
-                    keyboardService.visibilityOfShareView(position, b, value);
-                } else {
-                    try {
-
-
-                        Bitmap resizedbitmap = null, bm = null;
-
-                        if (value == 0) {
-                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img1[position]);
+                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                            byte[] b = baos.toByteArray();
+                            keyboardService.visibilityOfShareView(b);
+                        }else{
+                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img4[position]);
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                             bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
+                            int[] allpixels = new int[bm.getHeight() * bm.getWidth()];
 
+                            bm.getPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
 
-                        } else if (value == 1) {
-                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img2[position]);
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                            bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
-
-                        } else if (value == 2) {
-                            resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img3[position]);
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                            bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
-                        }
-                        int[] allpixels = new int[bm.getHeight() * bm.getWidth()];
-
-                        bm.getPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
-
-                        for (int i = 0; i < allpixels.length; i++) {
-                            if (allpixels[i] == Color.TRANSPARENT) {
-                                allpixels[i] = Color.WHITE;
+                            for (int i = 0; i < allpixels.length; i++) {
+                                if (allpixels[i] == Color.TRANSPARENT) {
+                                    allpixels[i] = Color.WHITE;
+                                }
                             }
-                        }
 
-                        bm.setPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
+                            bm.setPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
 
-                        String imgBitmapPath = MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(), bm, "title", null);
-                        Uri imageUri = Uri.parse(imgBitmapPath);
+                            String imgBitmapPath = MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(), bm, "title", null);
+                            Uri imageUri = Uri.parse(imgBitmapPath);
 
-                        try {
-                            ActivityInfo ai = getAppForShare("image/jpg");
-                            // Launch the Google+ share dialog with attribution to your app.
-                            Intent i = new Intent(Intent.ACTION_SEND);
-                            i.setClassName(ai.applicationInfo.packageName, ai.name);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            try {
+                                ActivityInfo ai = getAppForShare("image/jpg");
+                                // Launch the Google+ share dialog with attribution to your app.
+                                Intent i = new Intent(Intent.ACTION_SEND);
+                                i.setClassName(ai.applicationInfo.packageName, ai.name);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            i.setType("image/jpg");
-                            //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                            //   "Install this app and used refer code=1234567890");
-                            i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                i.setType("image/jpg");
+                                //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                                //   "Install this app and used refer code=1234567890");
+                                i.putExtra(Intent.EXTRA_STREAM, imageUri);
                    /* final Intent chooser = Intent.createChooser(i, "share");
                     chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
-                            keyboardService.startActivity(i);
-                        } catch (Exception c) {
-                            // Toast.makeText(keyboardService, "Application does not support", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(Intent.ACTION_SEND);
+                                keyboardService.startActivity(i);
+                            } catch (Exception c) {
+                                // Toast.makeText(keyboardService, "Application does not support", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(Intent.ACTION_SEND);
 
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            i.setType("image/jpg");
-                            //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                            //   "Install this app and used refer code=1234567890");
-                            i.putExtra(Intent.EXTRA_STREAM, imageUri);
-                            final Intent chooser = Intent.createChooser(i, "share");
-                            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            keyboardService.startActivity(chooser);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                i.setType("image/jpg");
+                                //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                                //   "Install this app and used refer code=1234567890");
+                                i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                                final Intent chooser = Intent.createChooser(i, "share");
+                                chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                keyboardService.startActivity(chooser);
+                            }
                         }
 
-                    } catch (android.content.ActivityNotFoundException ex) {
                     }
-                }
+                });
+            } else {
+                holder.lock.setVisibility(View.VISIBLE);
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        Toast.makeText(keyboardService,"Please go to application buy more sticker",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
             }
-        });
-       /* holder.gif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                *//*for (int l=0;l<img.length;l++){
-                    TypedValue value = new TypedValue();
-                    keyboardService.getResources().getValue(img[l], value, true);
-                    String resname = value.string.toString();
-                    if(resname==global.getListImages().get(l)){
+        }else {
+            holder.lock.setVisibility(View.GONE);
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    }
-                }*//*
-                try {
-                    File file1 = new File(Environment.getExternalStorageDirectory() + "/Denimoji/");
+                    if (sp.getString("type", "0").equalsIgnoreCase("1")) {
 
-                    if (!file1.exists())     //check if file already exists
-                    {
-                        file1.mkdirs();     //if not, create it
-                    }
-                    File file = new File(file1, "denimoji.gif");
 
-                    InputStream fis = null;
-                    try {
-                        byte[] readData = new byte[1024 * 500];
+                        if (value == 0) {
+                            bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img1[position]);
+
+                        } else if (value == 1) {
+                            bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img2[position]);
+
+                        } else if (value == 2) {
+                            bitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img3[position]);
+                        }
+
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                        byte[] b = baos.toByteArray();
+                        keyboardService.visibilityOfShareView(b);
+                    } else {
                         try {
+
+
+
+
                             if (value == 0) {
-                                fis = keyboardService.getResources().openRawResource(GlobalConstants.img1[position]);
+                                resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img1[position]);
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
+
+
                             } else if (value == 1) {
-                                fis = keyboardService.getResources().openRawResource(GlobalConstants.img2[position]);
+                                resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img2[position]);
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
+
                             } else if (value == 2) {
-                                fis = keyboardService.getResources().openRawResource(GlobalConstants.img3[position]);
+                                resizedbitmap = BitmapFactory.decodeResource(keyboardService.getResources(), GlobalConstants.img3[position]);
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                resizedbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                                bm = Bitmap.createScaledBitmap(resizedbitmap, 600, 600, true);
+                            }
+                            int[] allpixels = new int[bm.getHeight() * bm.getWidth()];
+
+                            bm.getPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
+
+                            for (int i = 0; i < allpixels.length; i++) {
+                                if (allpixels[i] == Color.TRANSPARENT) {
+                                    allpixels[i] = Color.WHITE;
+                                }
                             }
 
+                            bm.setPixels(allpixels, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight());
 
-                        } catch (NullPointerException e) {
+                            String imgBitmapPath = MediaStore.Images.Media.insertImage(keyboardService.getContentResolver(), bm, "title", null);
+                            Uri imageUri = Uri.parse(imgBitmapPath);
+
+                            try {
+                                ActivityInfo ai = getAppForShare("image/jpg");
+                                // Launch the Google+ share dialog with attribution to your app.
+                                Intent i = new Intent(Intent.ACTION_SEND);
+                                i.setClassName(ai.applicationInfo.packageName, ai.name);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                i.setType("image/jpg");
+                                //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                                //   "Install this app and used refer code=1234567890");
+                                i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                   /* final Intent chooser = Intent.createChooser(i, "share");
+                    chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*/
+                                keyboardService.startActivity(i);
+                            } catch (Exception c) {
+                                // Toast.makeText(keyboardService, "Application does not support", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(Intent.ACTION_SEND);
+
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                i.setType("image/jpg");
+                                //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
+                                //   "Install this app and used refer code=1234567890");
+                                i.putExtra(Intent.EXTRA_STREAM, imageUri);
+                                final Intent chooser = Intent.createChooser(i, "share");
+                                chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                keyboardService.startActivity(chooser);
+                            }
+
+                        } catch (android.content.ActivityNotFoundException ex) {
                         }
-
-
-                        FileOutputStream fos = new FileOutputStream(file);
-                        int i = fis.read(readData);
-
-                        while (i != -1) {
-                            fos.write(readData, 0, i);
-                            i = fis.read(readData);
-                        }
-
-                        fos.close();
-                    } catch (IOException io) {
                     }
-                    Uri imageUri = Uri.fromFile(file);
-
-                    try {
-                        ActivityInfo ai = getAppForShare("image/gif");
-                        // Launch the Google+ share dialog with attribution to your app.
-                        Intent i = new Intent(Intent.ACTION_SEND);
-                        i.setClassName(ai.applicationInfo.packageName, ai.name);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        i.setType("image/gif");
-                        //i.putExtra(android.content.Intent.EXTRA_SUBJECT,
-                        //   "Install this app and used refer code=1234567890");
-                        i.putExtra(Intent.EXTRA_STREAM, imageUri);
-                   *//* final Intent chooser = Intent.createChooser(i, "share");
-                    chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);*//*
-                        keyboardService.startActivity(i);
-                    } catch (Exception c) {
-                        Toast.makeText(keyboardService, "Application does not support", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (android.content.ActivityNotFoundException ex) {
                 }
-            }
-        });*/
+            });
+        }
     }
 
     @Override

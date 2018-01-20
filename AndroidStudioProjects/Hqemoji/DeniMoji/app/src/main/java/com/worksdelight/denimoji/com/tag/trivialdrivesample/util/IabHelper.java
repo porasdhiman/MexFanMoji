@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.tag.trivialdrivesample.util;
+package com.worksdelight.denimoji.com.tag.trivialdrivesample.util;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -30,7 +30,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.vending.billing.IInAppBillingService;
-
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -352,7 +351,7 @@ public class IabHelper {
      * Initiate the UI flow for an in-app purchase. Call this method to initiate an in-app purchase,
      * which will involve bringing up the Google Play screen. The calling activity will be paused while
      * the user interacts with Google Play, and the result will be delivered via the activity's
-     * {@link android.app.Activity#onActivityResult} method, at which point you must call
+     * {@link Activity#onActivityResult} method, at which point you must call
      * this object's {@link #handleActivityResult} method to continue the purchase flow. This method
      * MUST be called from the UI thread of the Activity.
      *
@@ -360,7 +359,7 @@ public class IabHelper {
      * @param sku The sku of the item to purchase.
      * @param itemType indicates if it's a product or a subscription (ITEM_TYPE_INAPP or ITEM_TYPE_SUBS)
      * @param requestCode A request code (to differentiate from other responses --
-     *     as in {@link android.app.Activity#startActivityForResult}).
+     *     as in {@link Activity#startActivityForResult}).
      * @param listener The listener to notify when the purchase process finishes
      * @param extraData Extra data (developer payload), which will be returned with the purchase data
      *     when the purchase completes. This extra data will be permanently bound to that purchase
@@ -424,7 +423,7 @@ public class IabHelper {
     /**
      * Handles an activity result that's part of the purchase flow in in-app billing. If you
      * are calling {@link #launchPurchaseFlow}, then you must call this method from your
-     * Activity's {@link android.app.Activity@onActivityResult} method. This method
+     * Activity's {@link Activity@onActivityResult} method. This method
      * MUST be called from the UI thread of the Activity.
      *
      * @param requestCode The requestCode as you received it.

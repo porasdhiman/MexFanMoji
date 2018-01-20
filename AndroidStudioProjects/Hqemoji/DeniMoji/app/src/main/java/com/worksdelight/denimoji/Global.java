@@ -1,4 +1,4 @@
-package com.rokolabs.rokomoji;
+package com.worksdelight.denimoji;
 
 import android.app.Application;
 
